@@ -1,0 +1,10 @@
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\bin\Debug\VK.exe.config
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\bin\Debug\VK.exe
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\bin\Debug\VK.pdb
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\bin\Debug\xNet.dll
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\obj\Debug\VK.Form1.resources
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\obj\Debug\VK.Properties.Resources.resources
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\obj\Debug\VK.csproj.GenerateResource.Cache
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\obj\Debug\VK.exe
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\obj\Debug\VK.pdb
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK\obj\Debug\VK.csprojResolveAssemblyReference.cache

@@ -58,11 +58,12 @@ namespace VK
         public int[] response { get; set; }
     }
     [JsonObject]
-    public class VideoCollection
+    p class VideoCollection
     {
-        
-        public int CountVideo { get; set; }
+        private int countvideo;
+        private Video[] response;
+        public int CountVideo { get{return countvideo;} set{countvideo=value;} }
         [JsonProperty]
-        public Video[] response { get; set; }
+        public Video[] ArrayVideo { get{return response;} set{response=value;} }
     }
 }

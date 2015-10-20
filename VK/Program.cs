@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace VK
 {
-    static class Program
+    public static class Program
     {
         /// <summary>
         public static int appID = 5088630;

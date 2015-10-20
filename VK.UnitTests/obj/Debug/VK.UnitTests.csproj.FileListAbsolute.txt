@@ -1,0 +1,10 @@
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\obj\Debug\VK.UnitTests.csprojResolveAssemblyReference.cache
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.UnitTests.pdb
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\nunit.framework.dll
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.exe
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.pdb
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\nunit.framework.xml
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\obj\Debug\VK.UnitTests.dll
+C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\obj\Debug\VK.UnitTests.pdb

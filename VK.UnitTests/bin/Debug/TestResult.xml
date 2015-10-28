@@ -1,17 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <!--This file represents the results of running a test suite-->
-<test-results name="C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll" total="1" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-10-18" time="16:03:10">
-  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.5485" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug" machine-name="AK_COMP" user="Akira" user-domain="AK_COMP" />
+<test-results name="C:\Users\Akira\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll" total="4" errors="0" failures="0" not-run="0" inconclusive="0" ignored="0" skipped="0" invalid="0" date="2015-10-29" time="02:58:08">
+  <environment nunit-version="2.6.4.14350" clr-version="2.0.50727.5485" os-version="Microsoft Windows NT 6.1.7601 Service Pack 1" platform="Win32NT" cwd="C:\Users\Akira\VK\VK.UnitTests\bin\Debug" machine-name="AK_COMP" user="Akira" user-domain="AK_COMP" />
   <culture-info current-culture="ru-RU" current-uiculture="ru-RU" />
-  <test-suite type="Assembly" name="C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll" executed="True" result="Success" success="True" time="146.890" asserts="0">
+  <test-suite type="Assembly" name="C:\Users\Akira\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll" executed="True" result="Success" success="True" time="0.236" asserts="0">
     <results>
-      <test-suite type="Namespace" name="VK" executed="True" result="Success" success="True" time="146.862" asserts="0">
+      <test-suite type="Namespace" name="VK" executed="True" result="Success" success="True" time="0.201" asserts="0">
         <results>
-          <test-suite type="Namespace" name="UnitTests" executed="True" result="Success" success="True" time="146.861" asserts="0">
+          <test-suite type="Namespace" name="UnitTests" executed="True" result="Success" success="True" time="0.200" asserts="0">
             <results>
-              <test-suite type="TestFixture" name="ControlTests" executed="True" result="Success" success="True" time="146.857" asserts="0">
+              <test-suite type="TestFixture" name="ControlTests" executed="True" result="Success" success="True" time="0.196" asserts="0">
                 <results>
-                  <test-case name="VK.UnitTests.ControlTests.FindPopularVideoFriends_CheckOwneridAndId_ReturnCorrectString" executed="True" result="Success" success="True" time="146.832" asserts="2" />
+                  <test-case name="VK.UnitTests.ControlTests.FindPopularVideoFriends_EmptyFieldVideo" executed="True" result="Success" success="True" time="0.137" asserts="1" />
+                  <test-case name="VK.UnitTests.ControlTests.FindPopularVideoFriends_ListVideoCollectionIsNull" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                  <test-case name="VK.UnitTests.ControlTests.FindPopularVideoFriends_ValidationWork" executed="True" result="Success" success="True" time="0.001" asserts="1" />
+                  <test-case name="VK.UnitTests.ControlTests.FindPopularVideoFriends_VideoIsNull" executed="True" result="Success" success="True" time="0.001" asserts="1" />
                 </results>
               </test-suite>
             </results>

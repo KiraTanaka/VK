@@ -29,7 +29,7 @@ namespace VK
     {
         private int countvideo;
         [JsonProperty("response")]
-        public List<Video> ArrayVideo { get; set; }
+        public List<Video> ListVideo { get; set; }
         public int CountVideo { get{return countvideo;} set{countvideo=value;} }
     }
 

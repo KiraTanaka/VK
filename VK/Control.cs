@@ -8,62 +8,47 @@ namespace VK
 {
     public class Control
     {
+      
         public static void ParseUrl(string url)
         {
             var urlParams = System.Web.HttpUtility.ParseQueryString(url);
             Program.AccessToken = urlParams.Get("access_token");
             Program.UserId = urlParams.Get("user_id");
         }
+        public static List<VideoCollection> FillingListVideoCollection(List<VideoCollection> listVideoCollection,List<int> persons) {
+            foreach(var person in persons){
+                VideoCollection videoCollection= DownloadVideo.Load(person);
+                if (!(videoCollection.ListVideo == null))
+                    listVideoCollection.Add(videoCollection);
+            }
+            return listVideoCollection;
+        }
         public static void Master() {
             PersonsID persons = new PersonsID();
             persons = DownloadFriends.Load();
             if (persons.Equals(null)) return;
             persons.PersonsId.Add(Int32.Parse(Program.UserId));
-            string VideoMaxCountViews = FindPopularVideoFriends(persons.PersonsId);
-
-            System.Diagnostics.Process.Start("https://vk.com/video" + VideoMaxCountViews);
+            List<VideoCollection> listVideoCollection=new List<VideoCollection>();
+            FillingListVideoCollection(listVideoCollection,persons.PersonsId);
+            
+            Video VideoMaxCountViews = FindPopularVideoFriends(listVideoCollection);
+            if (VideoMaxCountViews != null)
+                System.Diagnostics.Process.Start("https://vk.com/video" + VideoMaxCountViews.owner_id + "_" + VideoMaxCountViews.vid);
+            else
+                System.Diagnostics.Process.Start("http://costper.ru/wp-content/uploads/2015/07/20244247-1748x984.jpg");
         }
-        public static string FindPopularVideoFriends(List<int> persons) {
-            int maxCountViews = 0;
-            int idVideoMaxCountViews = 0;
-            int ownerIdVideoMaxCountViews = 0;
-            int indexPerson=0;
-            int index=0;
-            foreach (var person in persons) {
-                int indexVideo=0;
-                VideoCollection videoCollection = new VideoCollection();
-                videoCollection = DownloadVideo.Load(person);
-                if (!(videoCollection.ArrayVideo==null))
+        public static Video FindPopularVideoFriends(List<VideoCollection> listVideoCollection) {
+            Video current;
+            Video mostPopularVideo=null;
+            foreach (var videoCollection in listVideoCollection) {
+                if (!(videoCollection.ListVideo==null))
                 {
-                    indexVideo = FindPopularVideo(videoCollection);
-                    if (maxCountViews < videoCollection.ArrayVideo.ElementAt(indexVideo).views)
-                    {
-                        maxCountViews = videoCollection.ArrayVideo.ElementAt(indexVideo).views;
-                        idVideoMaxCountViews = videoCollection.ArrayVideo.ElementAt(indexVideo).vid;
-                        ownerIdVideoMaxCountViews = videoCollection.ArrayVideo.ElementAt(indexVideo).owner_id;
-                        indexPerson = index;
-                    }
+                    current = videoCollection.ListVideo.Where(x=>x!=null).OrderByDescending(x => x.views).First();
+                    if (mostPopularVideo==null || mostPopularVideo.views < current.views )
+                        mostPopularVideo = current;
                 }
-                index++;
             }
-            return ownerIdVideoMaxCountViews.ToString()+"_"+idVideoMaxCountViews.ToString();
-
-        }
-        public static int FindPopularVideo(VideoCollection videoCollection)
-        {
-            int maxCountViews = 0;
-            int indexVideoMaxCountViews = 0;
-            int index = 0;
-            foreach (var Video in videoCollection.ArrayVideo)
-            {
-                if (Video.views > maxCountViews)
-                {
-                    maxCountViews = Video.views;
-                    indexVideoMaxCountViews = index;
-                }
-                index++;
-            }
-            return indexVideoMaxCountViews;
+            return mostPopularVideo;
         }
     }
 }

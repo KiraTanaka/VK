@@ -1,14 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualState xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ShowCheckBoxes="false">
-  <TopNode>[0-1007]C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll</TopNode>
-  <SelectedNode>[0-1006]VK.UnitTests.ControlTests.FindPopularVideoFriends_CheckOwneridAndId_ReturnCorrectString</SelectedNode>
+  <TopNode>[0-1005]C:\Users\Akira\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll</TopNode>
+  <SelectedNode>[0-1000]VK.UnitTests.ControlTests</SelectedNode>
   <ExcludeCategories>false</ExcludeCategories>
   <Nodes>
-    <Node UniqueName="[0-1007]C:\Users\Akira\Documents\Visual Studio 2012\Projects\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll" Expanded="true" />
-    <Node UniqueName="[0-1008]VK" Expanded="true" />
-    <Node UniqueName="[0-1009]VK.UnitTests" Expanded="true" />
-    <Node UniqueName="[0-1004]VK.UnitTests.ControlTests" Expanded="true" />
-    <Node UniqueName="[0-1000]VK.UnitTests.DownloadFriendsTests" Expanded="true" />
-    <Node UniqueName="[0-1002]VK.UnitTests.DownloadVideoTests" Expanded="true" />
+    <Node UniqueName="[0-1005]C:\Users\Akira\VK\VK.UnitTests\bin\Debug\VK.UnitTests.dll" Expanded="true" />
+    <Node UniqueName="[0-1006]VK" Expanded="true" />
+    <Node UniqueName="[0-1007]VK.UnitTests" Expanded="true" />
+    <Node UniqueName="[0-1000]VK.UnitTests.ControlTests" Expanded="true" />
   </Nodes>
 </VisualState>

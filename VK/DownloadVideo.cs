@@ -24,7 +24,7 @@ namespace VK
 
             while (offset != videoCollection.CountVideo)
             {
-                if (videoCollection.ArrayVideo == null) jsonStringVideo = client.DownloadString(urlGetVideo);
+                if (videoCollection.ListVideo == null) jsonStringVideo = client.DownloadString(urlGetVideo);
                 else jsonStringVideo = client.DownloadString(urlGetVideoOffset);
 
                 if (jsonStringVideo.Contains("error")) break;
@@ -33,17 +33,17 @@ namespace VK
                 int indexEnd = jsonStringVideo.IndexOf(',');
                 if (indexBegin != -1 && indexEnd != -1)
                 {
-                    if (videoCollection.ArrayVideo == null)
+                    if (videoCollection.ListVideo == null)
                         videoCollection.CountVideo = Int32.Parse(jsonStringVideo.Substring(indexBegin + 1, indexEnd - indexBegin - 1));
                     jsonStringVideo = jsonStringVideo.Remove(indexBegin + 1, indexEnd - indexBegin);
-                    if (videoCollection.ArrayVideo == null)
-                        videoCollection.ArrayVideo = JsonConvert.DeserializeObject<VideoCollection>(jsonStringVideo).ArrayVideo;
+                    if (videoCollection.ListVideo == null)
+                        videoCollection.ListVideo = JsonConvert.DeserializeObject<VideoCollection>(jsonStringVideo).ListVideo;
                     else
                     {
-                        videoCollection.ArrayVideo.AddRange(JsonConvert.DeserializeObject<VideoCollection>(jsonStringVideo).ArrayVideo);
+                        videoCollection.ListVideo.AddRange(JsonConvert.DeserializeObject<VideoCollection>(jsonStringVideo).ListVideo);
                     }
                     index++;
-                    offset = videoCollection.ArrayVideo.Count();
+                    offset = videoCollection.ListVideo.Count();
                 }        
             }
             System.Threading.Thread.Sleep(1000);

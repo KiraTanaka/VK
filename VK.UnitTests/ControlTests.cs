@@ -21,24 +21,56 @@ namespace VK.UnitTests
     [TestFixture]
     public class ControlTests
     {
-        [Test]
-        public void FindPopularVideo_CheckIndex_ReturnCorrectInt()
+        List<VideoCollection> FillingListVideoCollection(List<VideoCollection> listVideoCollection)
         {
-            Program.AccessToken = "e8b30b3f7a24f2357ec959c417b3b2326561c463e35d87143ea4b02c5a248d4f93276ce145dc2d7395e04";
-            int UserId=72813887;
-            int indexVideoMaxCountViews = Control.FindPopularVideo(DownloadVideo.Load(UserId));
-            Assert.That(indexVideoMaxCountViews, Is.Not.Null.And.Not.Negative);
+            int[] arrayValue = new int[] {9787, 19779, 78 , 2345, 55674, 5    , 23598, 546746, 57 ,//VideoCollection{Video,Video,Video}
+                                          9487, 43626, 7  , 3456, 74677, 35   ,243626,234624,  6 ,
+                                          5745, 34577, 46 , 4556, 35738, 4636 ,3345,34567,     357 };
+            for (int i = 0; i < 3; i++)
+            {
+                VideoCollection videoCollection = new VideoCollection();
+                videoCollection.ListVideo = new List<Video>();
+                videoCollection.ListVideo.Add(new Video() { vid = arrayValue[i + i * 8], owner_id = arrayValue[i + 1 + i * 8], views = arrayValue[i + 2 + i * 8] });
+                videoCollection.ListVideo.Add(new Video() { vid = arrayValue[i + 3 + i * 8], owner_id = arrayValue[i + 4 + i * 8], views = arrayValue[i + 5 + i * 8] });
+                videoCollection.ListVideo.Add(new Video() { vid = arrayValue[i + 6 + i * 8], owner_id = arrayValue[i + 7 + i * 8], views = arrayValue[i + 8 + i * 8] });
+                listVideoCollection.Add(videoCollection);
 
+            }
+            return listVideoCollection;
         }
         [Test]
-        public void FindPopularVideoFriends_CheckOwneridAndId_ReturnCorrectString()
+        public void FindPopularVideoFriends_ListVideoCollectionIsNull()
         {
-            Program.AccessToken = "e8b30b3f7a24f2357ec959c417b3b2326561c463e35d87143ea4b02c5a248d4f93276ce145dc2d7395e04";
-            Program.UserId = "72813887";
-            var pattern = @"[-]?[0-9]+_[0-9]+";//-82310056_171325373
-            string VideoMaxCountViews = Control.FindPopularVideoFriends(DownloadFriends.Load().PersonsId);
-            Assert.That(VideoMaxCountViews, Is.Not.Null);
-            Assert.That(Regex.IsMatch(VideoMaxCountViews, pattern));
+            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
+            Assert.AreEqual(null, Control.FindPopularVideoFriends(listVideoCollection));
         }
+        [Test]
+        public void FindPopularVideoFriends_ValidationWork()
+        {
+            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
+            listVideoCollection = FillingListVideoCollection(listVideoCollection);
+            Video popularVideo = listVideoCollection[2].ListVideo[1]; 
+            Assert.AreEqual(popularVideo,Control.FindPopularVideoFriends(listVideoCollection));
+        }
+        [Test]
+        public void FindPopularVideoFriends_VideoIsNull()
+        {
+            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
+            listVideoCollection = FillingListVideoCollection(listVideoCollection);
+            listVideoCollection[0].ListVideo.Add(null);
+            listVideoCollection[0].ListVideo.Add(new Video { vid = 82474, owner_id = 924898, views =987654});
+            Video popularVideo = listVideoCollection[0].ListVideo[4];
+            Assert.AreEqual(popularVideo, Control.FindPopularVideoFriends(listVideoCollection));
+        }
+        [Test]
+        public void FindPopularVideoFriends_EmptyFieldVideo()
+        {
+            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
+            listVideoCollection = FillingListVideoCollection(listVideoCollection);
+            listVideoCollection[0].ListVideo.Add(new Video { vid = 0, owner_id = 0, views = 0 });
+            Video popularVideo = listVideoCollection[2].ListVideo[1];
+            Assert.AreEqual(popularVideo, Control.FindPopularVideoFriends(listVideoCollection));
+        }
+
     }
 }

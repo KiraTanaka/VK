@@ -4,24 +4,30 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace VK
 {
-
-    [JsonObject]
+    [Table("popular_video")]
     public class Video
     {
+        [Key]
+        public int Id { get; set; }
+        [Required]
+        public DateTime DateTime { get; set; }
+        [Required]
         [JsonProperty("vid")]
-        public int vid { get; set; }
+        public int Vid { get; set; }
+        [Required]
         [JsonProperty("owner_id")]
-        public int owner_id { get; set; }
+        public int OwnerId { get; set; }
+        [Required]
         [JsonProperty("views")]
-        public int views { get; set; }
+        public int Views { get; set; }
     }
-    [JsonObject]
     public class PersonsID
     {
-        [JsonProperty("response")]
         public List<int> PersonsId { get; set; }
     }
     [JsonObject]
@@ -32,15 +38,4 @@ namespace VK
         public List<Video> ListVideo { get; set; }
         public int CountVideo { get{return countvideo;} set{countvideo=value;} }
     }
-
-    //[JsonObject]
-    //public class Person
-    //{
-    //    [JsonProperty("id")]
-    //    public int uid { get; set; }
-    //    [JsonProperty]
-    //    public string first_name { get; set; }
-    //    [JsonProperty]
-    //    public string last_name { get; set; }
-    //}
 }

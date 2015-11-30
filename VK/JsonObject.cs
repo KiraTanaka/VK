@@ -17,6 +17,9 @@ namespace VK
         [Required]
         public DateTime DateTime { get; set; }
         [Required]
+        [JsonProperty("title")]
+        public string Title { get; set; }
+        [Required]
         [JsonProperty("vid")]
         public int Vid { get; set; }
         [Required]
@@ -25,6 +28,11 @@ namespace VK
         [Required]
         [JsonProperty("views")]
         public int Views { get; set; }
+        [Required]
+        [JsonProperty("player")]
+        public string Player { get; set; }
+        [Required]
+        public string VKPlayer { get; set; }
     }
     public class PersonsID
     {
@@ -33,9 +41,8 @@ namespace VK
     [JsonObject]
     public class VideoCollection
     {
-        private int countvideo;
         [JsonProperty("response")]
         public List<Video> ListVideo { get; set; }
-        public int CountVideo { get{return countvideo;} set{countvideo=value;} }
+        public int CountVideo { get; set; }
     }
 }

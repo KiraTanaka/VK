@@ -12,30 +12,34 @@ namespace VK
 {
     public class Control
     {
-        public static void ParseUrl(string url)
+        public static void ReceiveUrl()
         {
-            var urlParams = System.Web.HttpUtility.ParseQueryString(url);
-            Program.AccessToken = urlParams.Get("access_token");
-            Program.UserId = urlParams.Get("user_id");
+            using (VKContext db = new VKContext())
+            {
+                Program.AccessToken = db.AccessToken.OrderByDescending(x=>x.Id).First().AccessToken;
+                Program.UserId = "72813887";//urlParams.Get("user_id");
+            }
         }
-        public static List<VideoCollection> FillingListVideoCollection(List<VideoCollection> listVideoCollection,List<int> persons) {
+        public static List<Video> FillingListVideo(List<Video> listVideo,List<int> persons) {
             foreach(var person in persons){
                 VideoCollection videoCollection= DownloadVideo.Load(person);
                 if (!(videoCollection.ListVideo == null))
-                    listVideoCollection.Add(videoCollection);
+                    if (listVideo.Count != 0)
+                        listVideo.AddRange(videoCollection.ListVideo);
+                    else
+                        listVideo = videoCollection.ListVideo;
                 System.Threading.Thread.Sleep(2000);
             }
-            return listVideoCollection;
+            return listVideo;
         }
         public static void Master() {
-            List<Person> people = new List<Person>();
-            List<int> personsId = new List<int>();
-            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
-            Video mostPopularVideo;
+            List<Person> people = new List<Person>();     
+           // Video mostPopularVideo;
             using (VKContext db = new VKContext())
             {
+                List<Video> listVideo = new List<Video>();
+                List<int> personsId = new List<int>();
                 people = db.People.ToList();
-                personsId = null;
                 if (people.Count != 0)
                 {
                     foreach (var person in people)
@@ -45,15 +49,19 @@ namespace VK
 
                     if (personsId.Count != 0)
                     {
-                        listVideoCollection = null;
-                        FillingListVideoCollection(listVideoCollection, personsId);
-                        mostPopularVideo = FindPopularVideoFriends(listVideoCollection);
-                        if (mostPopularVideo != null)
+                        listVideo = FillingListVideo(listVideo, personsId);
+                        List<Video> topVideo = FindTop10Video(listVideo);
+                        //mostPopularVideo = FindPopularVideo(listVideo);
+                        if (topVideo.Count != 0)
                         {
-                            mostPopularVideo.DateTime = DateTime.Now;
-                            db.PopularVideo.Add(mostPopularVideo);
+                            foreach (var video in topVideo)
+                            {
+                                video.DateTime = DateTime.Now;
+                                video.VKPlayer = "https://vk.com/video" + video.OwnerId + "_" + video.Vid;
+                                db.PopularVideo.Add(video);
+                            }                            
                             db.SaveChanges();
-                            System.Diagnostics.Process.Start("https://vk.com/video" + mostPopularVideo.OwnerId + "_" + mostPopularVideo.Vid);
+                            System.Diagnostics.Process.Start(topVideo[0].VKPlayer);
                         }
                         else
                             System.Diagnostics.Process.Start("http://costper.ru/wp-content/uploads/2015/07/20244247-1748x984.jpg");
@@ -61,18 +69,24 @@ namespace VK
                 }
             }
         }
-        public static Video FindPopularVideoFriends(List<VideoCollection> listVideoCollection) {
-            Video current;
-            Video mostPopularVideo=null;
-            foreach (var videoCollection in listVideoCollection) {
-                if (!(videoCollection.ListVideo==null))
-                {
-                    current = videoCollection.ListVideo.Where(x=>x!=null).OrderByDescending(x => x.Views).First();
-                    if (mostPopularVideo==null || mostPopularVideo.Views < current.Views )
-                        mostPopularVideo = current;
-                }
-            }
-            return mostPopularVideo;
+        public static List<Video> FindTop10Video(List<Video> listVideo)
+        {
+            List<Video> topVideo = listVideo.OrderByDescending(x => x.Views).Take(10).ToList();
+            return topVideo;
         }
+        //public static Video FindPopularVideo(List<Video> listVideo) {            
+        //    if (listVideo.Count == 0) return null;
+        //    Video mostPopularVideo = listVideo.OrderByDescending(x => x.Views).First();
+        //    //foreach (var videoCollection in listVideoCollection) {
+        //    //    if (!(videoCollection.ListVideo==null))
+        //    //    {
+        //    //        current = videoCollection.ListVideo.Where(x=>x!=null).OrderByDescending(x => x.Views).First();
+        //    //        if (mostPopularVideo==null || mostPopularVideo.Views < current.Views )
+        //    //            mostPopularVideo = current;
+        //    //    }
+        //    //}
+        //    return mostPopularVideo;
+        //}
+        
     }
 }

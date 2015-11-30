@@ -19,6 +19,7 @@ namespace VK
             String urlGetVideoOffset = "https://api.vk.com/method/video.get?owner_id=" + userId + "&count=" + MaxCountVideoForLoad + "&offset=" + offset + "&access_token=" + Program.AccessToken;
             VideoCollection videoCollection = new VideoCollection();
             WebClient client = new WebClient();
+            client.Encoding = System.Text.Encoding.UTF8;
             String jsonStringVideo;
             videoCollection.CountVideo = 0;
 

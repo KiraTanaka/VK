@@ -30,9 +30,9 @@ namespace VK.UnitTests
             {
                 VideoCollection videoCollection = new VideoCollection();
                 videoCollection.ListVideo = new List<Video>();
-                videoCollection.ListVideo.Add(new Video() { vid = arrayValue[i + i * 8], owner_id = arrayValue[i + 1 + i * 8], views = arrayValue[i + 2 + i * 8] });
-                videoCollection.ListVideo.Add(new Video() { vid = arrayValue[i + 3 + i * 8], owner_id = arrayValue[i + 4 + i * 8], views = arrayValue[i + 5 + i * 8] });
-                videoCollection.ListVideo.Add(new Video() { vid = arrayValue[i + 6 + i * 8], owner_id = arrayValue[i + 7 + i * 8], views = arrayValue[i + 8 + i * 8] });
+                videoCollection.ListVideo.Add(new Video() { Vid = arrayValue[i + i * 8], OwnerId = arrayValue[i + 1 + i * 8], Views = arrayValue[i + 2 + i * 8] });
+                videoCollection.ListVideo.Add(new Video() { Vid = arrayValue[i + 3 + i * 8], OwnerId = arrayValue[i + 4 + i * 8], Views = arrayValue[i + 5 + i * 8] });
+                videoCollection.ListVideo.Add(new Video() { Vid = arrayValue[i + 6 + i * 8], OwnerId = arrayValue[i + 7 + i * 8], Views = arrayValue[i + 8 + i * 8] });
                 listVideoCollection.Add(videoCollection);
 
             }
@@ -42,7 +42,7 @@ namespace VK.UnitTests
         public void FindPopularVideoFriends_ListVideoCollectionIsNull()
         {
             List<VideoCollection> listVideoCollection = new List<VideoCollection>();
-            Assert.AreEqual(null, Control.FindPopularVideoFriends(listVideoCollection));
+            Assert.AreEqual(null, Control.FindPopularVideo(listVideoCollection));
         }
         [Test]
         public void FindPopularVideoFriends_ValidationWork()
@@ -50,7 +50,7 @@ namespace VK.UnitTests
             List<VideoCollection> listVideoCollection = new List<VideoCollection>();
             listVideoCollection = FillingListVideoCollection(listVideoCollection);
             Video popularVideo = listVideoCollection[2].ListVideo[1]; 
-            Assert.AreEqual(popularVideo,Control.FindPopularVideoFriends(listVideoCollection));
+            Assert.AreEqual(popularVideo,Control.FindPopularVideo(listVideoCollection));
         }
         [Test]
         public void FindPopularVideoFriends_VideoIsNull()
@@ -58,18 +58,18 @@ namespace VK.UnitTests
             List<VideoCollection> listVideoCollection = new List<VideoCollection>();
             listVideoCollection = FillingListVideoCollection(listVideoCollection);
             listVideoCollection[0].ListVideo.Add(null);
-            listVideoCollection[0].ListVideo.Add(new Video { vid = 82474, owner_id = 924898, views =987654});
+            listVideoCollection[0].ListVideo.Add(new Video { Vid = 82474, OwnerId = 924898, Views = 987654 });
             Video popularVideo = listVideoCollection[0].ListVideo[4];
-            Assert.AreEqual(popularVideo, Control.FindPopularVideoFriends(listVideoCollection));
+            Assert.AreEqual(popularVideo, Control.FindPopularVideo(listVideoCollection));
         }
         [Test]
         public void FindPopularVideoFriends_EmptyFieldVideo()
         {
             List<VideoCollection> listVideoCollection = new List<VideoCollection>();
             listVideoCollection = FillingListVideoCollection(listVideoCollection);
-            listVideoCollection[0].ListVideo.Add(new Video { vid = 0, owner_id = 0, views = 0 });
+            listVideoCollection[0].ListVideo.Add(new Video { Vid = 0, OwnerId = 0, Views = 0 });
             Video popularVideo = listVideoCollection[2].ListVideo[1];
-            Assert.AreEqual(popularVideo, Control.FindPopularVideoFriends(listVideoCollection));
+            Assert.AreEqual(popularVideo, Control.FindPopularVideo(listVideoCollection));
         }
 
     }

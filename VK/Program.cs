@@ -10,8 +10,8 @@ namespace VK
     {
         /// <summary>
         public static int appID = 5088630;
-        public static int scope = 16;
-        public static string RedirectUri="http://oauth.vk.com/blank.html";
+        public static int scope = 4;
+        public static string RedirectUri="https://oauth.vk.com/blank.html";
         public static string AccessToken = "";
         public static string UserId = "";
         /// Главная точка входа для приложения.
@@ -21,7 +21,9 @@ namespace VK
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Form1());
+            Control.ReceiveUrl();
+            Control.Master();
+            //Application.Run(new Form1());
         }
     }
 }

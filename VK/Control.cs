@@ -71,7 +71,8 @@ namespace VK
         }
         public static List<Video> FindTop10Video(List<Video> listVideo)
         {
-            List<Video> topVideo = listVideo.OrderByDescending(x => x.Views).Take(10).ToList();
+            if (listVideo.Count == 0) return null;
+            List<Video> topVideo = listVideo.Where(x=>x!=null).OrderByDescending(x => x.Views).Take(10).ToList();
             return topVideo;
         }
         //public static Video FindPopularVideo(List<Video> listVideo) {            

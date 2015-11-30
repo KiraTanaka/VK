@@ -1,5 +1,6 @@
 ﻿using System;
 using NUnit.Framework;
+using System.Linq;
 using VK;
 using System.Text.RegularExpressions;
 using System.Collections.Generic;
@@ -21,55 +22,63 @@ namespace VK.UnitTests
     [TestFixture]
     public class ControlTests
     {
-        List<VideoCollection> FillingListVideoCollection(List<VideoCollection> listVideoCollection)
+        List<Video> FillingListVideo(List<Video> listVideo)
         {
-            int[] arrayValue = new int[] {9787, 19779, 78 , 2345, 55674, 5    , 23598, 546746, 57 ,//VideoCollection{Video,Video,Video}
-                                          9487, 43626, 7  , 3456, 74677, 35   ,243626,234624,  6 ,
-                                          5745, 34577, 46 , 4556, 35738, 4636 ,3345,34567,     357 };
+            int[] arrayValue = new int[] {9787, 19779, 4636 , 2345, 55674, 357    , 23598, 546746, 75 ,
+                                          9487, 43626, 57  , 3456, 74677, 46   ,243626,234624,  35 ,
+                                          5745, 34577, 7 , 4556, 35738, 6 ,3345,34567,     5, 
+                                          9458, 34566, 1};
             for (int i = 0; i < 3; i++)
             {
-                VideoCollection videoCollection = new VideoCollection();
-                videoCollection.ListVideo = new List<Video>();
-                videoCollection.ListVideo.Add(new Video() { Vid = arrayValue[i + i * 8], OwnerId = arrayValue[i + 1 + i * 8], Views = arrayValue[i + 2 + i * 8] });
-                videoCollection.ListVideo.Add(new Video() { Vid = arrayValue[i + 3 + i * 8], OwnerId = arrayValue[i + 4 + i * 8], Views = arrayValue[i + 5 + i * 8] });
-                videoCollection.ListVideo.Add(new Video() { Vid = arrayValue[i + 6 + i * 8], OwnerId = arrayValue[i + 7 + i * 8], Views = arrayValue[i + 8 + i * 8] });
-                listVideoCollection.Add(videoCollection);
-
+                listVideo.Add(new Video() { Vid = arrayValue[i + i * 8], OwnerId = arrayValue[i + 1 + i * 8], Views = arrayValue[i + 2 + i * 8] });
+                listVideo.Add(new Video() { Vid = arrayValue[i + 3 + i * 8], OwnerId = arrayValue[i + 4 + i * 8], Views = arrayValue[i + 5 + i * 8] });
+                listVideo.Add(new Video() { Vid = arrayValue[i + 6 + i * 8], OwnerId = arrayValue[i + 7 + i * 8], Views = arrayValue[i + 8 + i * 8] });
             }
-            return listVideoCollection;
+            listVideo.Add(new Video() { Vid = arrayValue[27], OwnerId = arrayValue[28], Views = arrayValue[29] });
+            return listVideo;
         }
         [Test]
-        public void FindPopularVideoFriends_ListVideoCollectionIsNull()
+        public void FindTop10VideoFriends_ListVideoIsNull()
         {
-            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
-            Assert.AreEqual(null, Control.FindPopularVideo(listVideoCollection));
+            List<Video> listVideo = new List<Video>();
+            Assert.AreEqual(null, Control.FindTop10Video(listVideo));
         }
         [Test]
-        public void FindPopularVideoFriends_ValidationWork()
+        public void FindTop10VideoFriends_ValidationWork()
         {
-            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
-            listVideoCollection = FillingListVideoCollection(listVideoCollection);
-            Video popularVideo = listVideoCollection[2].ListVideo[1]; 
-            Assert.AreEqual(popularVideo,Control.FindPopularVideo(listVideoCollection));
+            List<Video> listVideo= new List<Video>();
+            listVideo = FillingListVideo(listVideo);
+            Assert.AreEqual(listVideo, Control.FindTop10Video(listVideo));
         }
         [Test]
-        public void FindPopularVideoFriends_VideoIsNull()
+        public void FindTop10VideoFriends_VideoIsNull()
         {
-            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
-            listVideoCollection = FillingListVideoCollection(listVideoCollection);
-            listVideoCollection[0].ListVideo.Add(null);
-            listVideoCollection[0].ListVideo.Add(new Video { Vid = 82474, OwnerId = 924898, Views = 987654 });
-            Video popularVideo = listVideoCollection[0].ListVideo[4];
-            Assert.AreEqual(popularVideo, Control.FindPopularVideo(listVideoCollection));
+            List<Video> listVideo = new List<Video>();
+            listVideo = FillingListVideo(listVideo);
+            listVideo.Add(null);
+            listVideo.Add(new Video { Vid = 82474, OwnerId = 924898, Views = 987654 });
+            List<Video> listVideoResult = new List<Video>();
+            listVideoResult.Add(listVideo[11]);
+            listVideoResult.AddRange(listVideo.Take(9).ToList());
+            Assert.AreEqual(listVideoResult, Control.FindTop10Video(listVideo));
         }
         [Test]
-        public void FindPopularVideoFriends_EmptyFieldVideo()
+        public void FindTop10VideoFriends_CountOfListVideoLess10()
         {
-            List<VideoCollection> listVideoCollection = new List<VideoCollection>();
-            listVideoCollection = FillingListVideoCollection(listVideoCollection);
-            listVideoCollection[0].ListVideo.Add(new Video { Vid = 0, OwnerId = 0, Views = 0 });
-            Video popularVideo = listVideoCollection[2].ListVideo[1];
-            Assert.AreEqual(popularVideo, Control.FindPopularVideo(listVideoCollection));
+            List<Video> listVideo = new List<Video>();
+            listVideo = FillingListVideo(listVideo);
+            listVideo.RemoveAt(9);
+            Assert.AreEqual(listVideo, Control.FindTop10Video(listVideo));
+        }
+        [Test]
+        public void FindTop10VideoFriends_EmptyFieldVideo()
+        {
+            List<Video> listVideo = new List<Video>();
+            listVideo = FillingListVideo(listVideo);
+            listVideo.Add(new Video { Vid = 0, OwnerId = 0, Views = 0 });
+            List<Video> listVideoResult = new List<Video>();
+            listVideoResult = listVideo.Take(10).ToList();
+            Assert.AreEqual(listVideoResult, Control.FindTop10Video(listVideo));
         }
 
     }

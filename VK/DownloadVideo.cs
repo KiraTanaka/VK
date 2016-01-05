@@ -11,22 +11,23 @@ namespace VK
 {
     public class DownloadVideo
     {
-        public static VideoCollection Load(int userId) {
+        private IService service;
+        public DownloadVideo(IService service) 
+        {
+            this.service = service;
+        }
+        public VideoCollection Load(int userId) {
             int index = 0;
             int MaxCountVideoForLoad = 200;
             int offset = -1;
-            String urlGetVideo = "https://api.vk.com/method/video.get?owner_id=" + userId + "&count=" + MaxCountVideoForLoad + "&access_token=" + Program.AccessToken;
-            String urlGetVideoOffset = "https://api.vk.com/method/video.get?owner_id=" + userId + "&count=" + MaxCountVideoForLoad + "&offset=" + offset + "&access_token=" + Program.AccessToken;
             VideoCollection videoCollection = new VideoCollection();
-            WebClient client = new WebClient();
-            client.Encoding = System.Text.Encoding.UTF8;
             String jsonStringVideo;
             videoCollection.CountVideo = 0;
 
             while (offset != videoCollection.CountVideo)
             {
-                if (videoCollection.ListVideo == null) jsonStringVideo = client.DownloadString(urlGetVideo);
-                else jsonStringVideo = client.DownloadString(urlGetVideoOffset);
+                if (videoCollection.ListVideo == null) jsonStringVideo = service.GetVideo(userId,MaxCountVideoForLoad,Program.AccessToken);
+                else jsonStringVideo = service.GetVideo(userId, MaxCountVideoForLoad, Program.AccessToken, offset);
 
                 if (jsonStringVideo.Contains("error")) break;
 

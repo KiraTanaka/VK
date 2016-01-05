@@ -22,6 +22,7 @@ namespace VK.UnitTests
     [TestFixture]
     public class ControlTests
     {
+        Control control = new Control(new VKService());
         List<Video> FillingListVideo(List<Video> listVideo)
         {
             int[] arrayValue = new int[] {9787, 19779, 4636 , 2345, 55674, 357    , 23598, 546746, 75 ,
@@ -41,14 +42,14 @@ namespace VK.UnitTests
         public void FindTop10VideoFriends_ListVideoIsNull()
         {
             List<Video> listVideo = new List<Video>();
-            Assert.AreEqual(null, Control.FindTop10Video(listVideo));
+            Assert.AreEqual(null, control.FindTop10Video(listVideo));
         }
         [Test]
         public void FindTop10VideoFriends_ValidationWork()
         {
             List<Video> listVideo= new List<Video>();
             listVideo = FillingListVideo(listVideo);
-            Assert.AreEqual(listVideo, Control.FindTop10Video(listVideo));
+            Assert.AreEqual(listVideo, control.FindTop10Video(listVideo));
         }
         [Test]
         public void FindTop10VideoFriends_VideoIsNull()
@@ -60,7 +61,7 @@ namespace VK.UnitTests
             List<Video> listVideoResult = new List<Video>();
             listVideoResult.Add(listVideo[11]);
             listVideoResult.AddRange(listVideo.Take(9).ToList());
-            Assert.AreEqual(listVideoResult, Control.FindTop10Video(listVideo));
+            Assert.AreEqual(listVideoResult, control.FindTop10Video(listVideo));
         }
         [Test]
         public void FindTop10VideoFriends_CountOfListVideoLess10()
@@ -68,7 +69,7 @@ namespace VK.UnitTests
             List<Video> listVideo = new List<Video>();
             listVideo = FillingListVideo(listVideo);
             listVideo.RemoveAt(9);
-            Assert.AreEqual(listVideo, Control.FindTop10Video(listVideo));
+            Assert.AreEqual(listVideo, control.FindTop10Video(listVideo));
         }
         [Test]
         public void FindTop10VideoFriends_EmptyFieldVideo()
@@ -78,7 +79,7 @@ namespace VK.UnitTests
             listVideo.Add(new Video { Vid = 0, OwnerId = 0, Views = 0 });
             List<Video> listVideoResult = new List<Video>();
             listVideoResult = listVideo.Take(10).ToList();
-            Assert.AreEqual(listVideoResult, Control.FindTop10Video(listVideo));
+            Assert.AreEqual(listVideoResult, control.FindTop10Video(listVideo));
         }
 
     }

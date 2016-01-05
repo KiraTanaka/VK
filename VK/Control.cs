@@ -12,7 +12,12 @@ namespace VK
 {
     public class Control
     {
-        public static void ReceiveUrl()
+        private DownloadVideo downloadVideo;
+        public Control(IService service)
+        {
+            downloadVideo = new DownloadVideo(service);
+        }
+        public void ReceiveToken()
         {
             using (VKContext db = new VKContext())
             {
@@ -20,9 +25,10 @@ namespace VK
                 Program.UserId = "72813887";//urlParams.Get("user_id");
             }
         }
-        public static List<Video> FillingListVideo(List<Video> listVideo,List<int> persons) {
-            foreach(var person in persons){
-                VideoCollection videoCollection= DownloadVideo.Load(person);
+        public List<Video> FillingListVideo(List<int> persons) {
+            List<Video> listVideo = new List<Video>();
+            foreach(var personId in persons){
+                VideoCollection videoCollection = downloadVideo.Load(personId);
                 if (!(videoCollection.ListVideo == null))
                     if (listVideo.Count != 0)
                         listVideo.AddRange(videoCollection.ListVideo);
@@ -32,12 +38,12 @@ namespace VK
             }
             return listVideo;
         }
-        public static void Master() {
+        public void Master() {
             List<Person> people = new List<Person>();     
            // Video mostPopularVideo;
             using (VKContext db = new VKContext())
             {
-                List<Video> listVideo = new List<Video>();
+                List<Video> listVideo;
                 List<int> personsId = new List<int>();
                 people = db.People.ToList();
                 if (people.Count != 0)
@@ -49,7 +55,7 @@ namespace VK
 
                     if (personsId.Count != 0)
                     {
-                        listVideo = FillingListVideo(listVideo, personsId);
+                        listVideo = FillingListVideo(personsId);
                         List<Video> topVideo = FindTop10Video(listVideo);
                         //mostPopularVideo = FindPopularVideo(listVideo);
                         if (topVideo.Count != 0)
@@ -69,12 +75,14 @@ namespace VK
                 }
             }
         }
-        public static List<Video> FindTop10Video(List<Video> listVideo)
+        public List<Video> FindTop10Video(List<Video> listVideo)
         {
             if (listVideo.Count == 0) return null;
             List<Video> topVideo = listVideo.Where(x=>x!=null).OrderByDescending(x => x.Views).Take(10).ToList();
             return topVideo;
         }
+
+
         //public static Video FindPopularVideo(List<Video> listVideo) {            
         //    if (listVideo.Count == 0) return null;
         //    Video mostPopularVideo = listVideo.OrderByDescending(x => x.Views).First();

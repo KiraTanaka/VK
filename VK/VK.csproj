@@ -90,7 +90,6 @@
     <Compile Include="IService.cs" />
     <Compile Include="JsonObject.cs" />
     <Compile Include="DbModels.cs" />
-    <Compile Include="OperatorRequestObject.cs" />
     <Compile Include="Reciever.cs" />
     <Compile Include="VKContext.cs" />
     <Compile Include="Program.cs" />

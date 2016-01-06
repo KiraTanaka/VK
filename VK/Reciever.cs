@@ -26,8 +26,8 @@ namespace VK
         private void Message_Listener(IMessage message)
         {
             IObjectMessage objMessage = message as IObjectMessage;
-            OperatorRequestObject operatorRequestObject = ((OperatorRequestObject)(objMessage.Body));
-            MessageBox.Show(operatorRequestObject.Shortcode);
+            //OperatorRequestObject operatorRequestObject = ((OperatorRequestObject)(objMessage.Body));
+            //MessageBox.Show(operatorRequestObject.Shortcode);
         }
     }
 }

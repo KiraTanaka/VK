@@ -14,8 +14,10 @@ namespace VK
         [Key]
         public int PersonId { get; set; }
         [Required]
+        [JsonProperty("first_name")]
         public string FirstName { get; set; }
         [Required]
+        [JsonProperty("last_name")]
         public string LastName { get; set; }
         [Required]
         public int UID { get; set; }

@@ -52,9 +52,18 @@ namespace VK
 
         private void Message_Listener(IMessage message)
         {
-            IObjectMessage objMessage = message as IObjectMessage;
-            OperatorRequestObject operatorRequestObject = ((OperatorRequestObject)(objMessage.Body));
-            MessageBox.Show(operatorRequestObject.Shortcode);
+            //IObjectMessage objMessage = message as IObjectMessage;
+            //OperatorRequestObject operatorRequestObject;
+            //try
+            //{
+            //    operatorRequestObject = ((OperatorRequestObject)(objMessage.Body));
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    throw;
+            //}
+            //MessageBox.Show(operatorRequestObject.Shortcode);
         }
         //private void Form1_Load(object sender, EventArgs e)
         //{

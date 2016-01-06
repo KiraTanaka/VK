@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace VK
+namespace VKUsers
 {
     [Serializable]
-    public class OperatorRequestObject
+    public class UserInformationToAdd
     {
-        public string Shortcode { get; set; }
+        public string userUrl;
+        public bool addFriends;
     }
 }

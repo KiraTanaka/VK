@@ -22,7 +22,6 @@ namespace VK
             using (VKContext db = new VKContext())
             {
                 Program.AccessToken = db.AccessToken.OrderByDescending(x=>x.Id).First().AccessToken;
-                Program.UserId = "72813887";//urlParams.Get("user_id");
             }
         }
         public List<Video> FillingListVideo(List<int> persons) {
@@ -67,10 +66,10 @@ namespace VK
                                 db.PopularVideo.Add(video);
                             }                            
                             db.SaveChanges();
-                            System.Diagnostics.Process.Start(topVideo[0].VKPlayer);
+                            //System.Diagnostics.Process.Start(topVideo[0].VKPlayer);
                         }
-                        else
-                            System.Diagnostics.Process.Start("http://costper.ru/wp-content/uploads/2015/07/20244247-1748x984.jpg");
+                        //else
+                        //    System.Diagnostics.Process.Start("http://costper.ru/wp-content/uploads/2015/07/20244247-1748x984.jpg");
                     }
                 }
             }
@@ -80,22 +79,6 @@ namespace VK
             if (listVideo.Count == 0) return null;
             List<Video> topVideo = listVideo.Where(x=>x!=null).OrderByDescending(x => x.Views).Take(10).ToList();
             return topVideo;
-        }
-
-
-        //public static Video FindPopularVideo(List<Video> listVideo) {            
-        //    if (listVideo.Count == 0) return null;
-        //    Video mostPopularVideo = listVideo.OrderByDescending(x => x.Views).First();
-        //    //foreach (var videoCollection in listVideoCollection) {
-        //    //    if (!(videoCollection.ListVideo==null))
-        //    //    {
-        //    //        current = videoCollection.ListVideo.Where(x=>x!=null).OrderByDescending(x => x.Views).First();
-        //    //        if (mostPopularVideo==null || mostPopularVideo.Views < current.Views )
-        //    //            mostPopularVideo = current;
-        //    //    }
-        //    //}
-        //    return mostPopularVideo;
-        //}
-        
+        }      
     }
 }

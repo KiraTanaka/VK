@@ -38,8 +38,7 @@ namespace VK
             return listVideo;
         }
         public void Master() {
-            List<Person> people = new List<Person>();     
-           // Video mostPopularVideo;
+            List<Person> people = new List<Person>();
             using (VKContext db = new VKContext())
             {
                 List<Video> listVideo;
@@ -56,7 +55,6 @@ namespace VK
                     {
                         listVideo = FillingListVideo(personsId);
                         List<Video> topVideo = FindTop10Video(listVideo);
-                        //mostPopularVideo = FindPopularVideo(listVideo);
                         if (topVideo.Count != 0)
                         {
                             foreach (var video in topVideo)

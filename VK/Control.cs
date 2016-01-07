@@ -13,6 +13,7 @@ namespace VK
     public class Control
     {
         private DownloadVideo DownloadVideo;
+        private List<Video> listVideo = new List<Video>();
         public Control(IVideoService service)
         {
             DownloadVideo = new DownloadVideo(service);
@@ -24,51 +25,42 @@ namespace VK
                 Program.AccessToken = db.AccessToken.OrderByDescending(x=>x.Id).First().AccessToken;
             }
         }
-        public List<Video> FillingListVideo(List<int> persons) {
-            List<Video> listVideo = new List<Video>();
-            foreach(var personId in persons){
-                VideoCollection videoCollection = DownloadVideo.Load(personId);
+        public void FillingListVideo(List<Person> people) {
+            foreach(var person in people){
+                VideoCollection videoCollection = DownloadVideo.Load(person.UID);
                 if (!(videoCollection.ListVideo == null))
+                {
                     if (listVideo.Count != 0)
                         listVideo.AddRange(videoCollection.ListVideo);
                     else
                         listVideo = videoCollection.ListVideo;
+                }
                 System.Threading.Thread.Sleep(2000);
             }
-            return listVideo;
         }
         public void Master() {
             List<Person> people = new List<Person>();
             using (VKContext db = new VKContext())
             {
-                List<Video> listVideo;
-                List<int> personsId = new List<int>();
                 people = db.People.ToList();
                 if (people.Count != 0)
                 {
-                    foreach (var person in people)
+                    FillingListVideo(people);
+                    List<Video> topVideo = FindTop10Video(listVideo);
+                    if (topVideo.Count != 0)
                     {
-                        personsId.Add(person.UID);
-                    }
-
-                    if (personsId.Count != 0)
-                    {
-                        listVideo = FillingListVideo(personsId);
-                        List<Video> topVideo = FindTop10Video(listVideo);
-                        if (topVideo.Count != 0)
+                        foreach (var video in topVideo)
                         {
-                            foreach (var video in topVideo)
-                            {
-                                video.DateTime = DateTime.Now;
-                                video.VKPlayer = "https://vk.com/video" + video.OwnerId + "_" + video.Vid;
-                                db.PopularVideo.Add(video);
-                            }                            
-                            db.SaveChanges();
-                            //System.Diagnostics.Process.Start(topVideo[0].VKPlayer);
+                            video.DateTime = DateTime.Now;
+                            video.VKPlayer = "https://vk.com/video" + video.OwnerId + "_" + video.Vid;
+                            db.PopularVideo.Add(video);
                         }
-                        //else
-                        //    System.Diagnostics.Process.Start("http://costper.ru/wp-content/uploads/2015/07/20244247-1748x984.jpg");
+                        db.SaveChanges();
+                        //System.Diagnostics.Process.Start(topVideo[0].VKPlayer);
                     }
+                    //else
+                    //    System.Diagnostics.Process.Start("http://costper.ru/wp-content/uploads/2015/07/20244247-1748x984.jpg");
+
                 }
             }
         }

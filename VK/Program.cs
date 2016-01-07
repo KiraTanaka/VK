@@ -34,9 +34,13 @@ namespace VK
             //service = serviceMoc.Object;
 
             Control control = new Control(new VKService());
-            control.ReceiveToken();
-            control.Master();
 
+            while (true)
+            {
+                control.ReceiveToken();
+                control.Master();
+                System.Threading.Thread.Sleep(86400000);
+            }
             
             //List<Video> listVideoMoq = new List<Video>();
             //List<Video> listVideo = new List<Video>();

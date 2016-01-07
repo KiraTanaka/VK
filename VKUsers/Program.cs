@@ -11,7 +11,7 @@ namespace VKUsers
     {
         static void Main(string[] args)
         {
-            Master master = new Master();
+            Master master = new Master(new VKDownloadUsers());
             master.Listener();
         }
     }

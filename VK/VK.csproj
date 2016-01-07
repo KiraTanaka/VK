@@ -87,7 +87,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="IService.cs" />
+    <Compile Include="IVideoService.cs" />
     <Compile Include="JsonObject.cs" />
     <Compile Include="DbModels.cs" />
     <Compile Include="Reciever.cs" />

@@ -13,6 +13,17 @@ namespace VKUsers
         [JsonProperty("response")]
         public List<Person> People { get; set; }
     }
+    public class MembersOfGroup
+    {
+        [JsonProperty("count")]
+        public int Count { get; set; }
+        [JsonProperty("users")]
+        public List<Person> People { get; set; }
+    }
+    public class ResponseMembers
+    {
+        public MembersOfGroup response { get; set; }
+    }
     public class ResponseScreenName
     {
         public ResolveScreenName response { get; set; }

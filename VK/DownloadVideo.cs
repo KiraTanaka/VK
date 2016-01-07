@@ -11,8 +11,8 @@ namespace VK
 {
     public class DownloadVideo
     {
-        private IService service;
-        public DownloadVideo(IService service) 
+        private IVideoService service;
+        public DownloadVideo(IVideoService service) 
         {
             this.service = service;
         }

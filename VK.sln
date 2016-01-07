@@ -5,7 +5,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VK", "VK\VK.csproj", "{B12B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VK.UnitTests", "VK.UnitTests\VK.UnitTests.csproj", "{5789693C-998D-4651-8658-97EEE17E1F0C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKUsers", "VKUpdate\VKUsers.csproj", "{4A8B6231-3867-4252-A7E7-60E405335F8D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VKUsers", "VKUsers\VKUsers.csproj", "{4A8B6231-3867-4252-A7E7-60E405335F8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

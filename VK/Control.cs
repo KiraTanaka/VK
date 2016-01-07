@@ -12,10 +12,10 @@ namespace VK
 {
     public class Control
     {
-        private DownloadVideo downloadVideo;
-        public Control(IService service)
+        private DownloadVideo DownloadVideo;
+        public Control(IVideoService service)
         {
-            downloadVideo = new DownloadVideo(service);
+            DownloadVideo = new DownloadVideo(service);
         }
         public void ReceiveToken()
         {
@@ -27,7 +27,7 @@ namespace VK
         public List<Video> FillingListVideo(List<int> persons) {
             List<Video> listVideo = new List<Video>();
             foreach(var personId in persons){
-                VideoCollection videoCollection = downloadVideo.Load(personId);
+                VideoCollection videoCollection = DownloadVideo.Load(personId);
                 if (!(videoCollection.ListVideo == null))
                     if (listVideo.Count != 0)
                         listVideo.AddRange(videoCollection.ListVideo);
